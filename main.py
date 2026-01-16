@@ -13,6 +13,7 @@ Usage:
 """
 
 import argparse
+import getpass
 import sys
 
 import analyser
@@ -23,7 +24,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Password Complexity Analyser"
     )
-    parser.add_argument("password", help="Password to analyse")
+    parser.add_argument("password", nargs="?", help="Password to analyse")
     parser.add_argument(
         "-o",
         "--output",
@@ -37,6 +38,14 @@ def main():
     args = parser.parse_args()
 
     password = args.password
+
+    if not password:
+        if sys.stdin.isatty():
+            password = getpass.getpass(
+                "Password input is hidden. Type password and press Enter: "
+            )
+        else:
+            password = sys.stdin.readline().strip()
 
     if not password:
         print("Error: No password entered.")
