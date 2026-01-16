@@ -5,11 +5,18 @@ CLI tool designed to evaluate the strength and security of passwords. This proje
 ## Features
 
 - **Command Line Interface:** Simple and intuitive CLI built with `argparse`, allowing for quick analysis directly from the terminal.
+
+### Reporting
+
 - **Complexity:** Checks password length, usage of uppercase/lowercase letters, digits, and special characters.
 - **Entropy:** Calculates the Shannon entropy of the password to measure its unpredictability (in bits).
 - **Crack Time Estimation:** Provides a human-readable estimate of how long it would take to brute-force the password using modern hardware benchmarks.
-- **Strength Grading:** Assigns descriptive grade based on entropy score.
 - **Common Password Detection:** Checks against a database of common passwords. Known passwords effectively have 0 entropy.
+- **JSON Export:** Option to export detailed analysis results to a JSON file for external use or logging.
+
+### Usability
+
+- **Strength Grading:** Assigns descriptive grade based on entropy score.
 - **Visual Feedback:** Uses color-coded output to highlight strengths, weaknesses, \& security risks.
 - **Smart Suggestions:** Provides actionable advice to improve password strength.
 
@@ -30,10 +37,14 @@ Built to fail gracefully.
 
 ## Usage
 
-Run the tool from the terminal by passing the target password as an argument.
+Run the tool from the terminal by passing the target password as an argument. Supports exporting results to a JSON file.
 
 ```bash
 python main.py "Password123"
+```
+
+```bash
+python main.py "Password123" --output report.json
 ```
 
 ### Example Output

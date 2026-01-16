@@ -8,6 +8,7 @@ Description:
     Includes functions for loading common password lists & estimating cracking times based on entropy calculations.
 """
 
+import json
 import os
 
 import humanize
@@ -46,6 +47,18 @@ def estimate_crack_time(entropy: float) -> str:
         return humanize.precisedelta(seconds_to_crack)
     except OverflowError:
         return "Infeasible"
+
+
+def export_to_json(data: dict, filename: str):
+    """
+    Exports the analysis report to a JSON file.
+    """
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+        print(f"Report saved to {filename}")
+    except OSError as e:
+        print(f"Error saving to JSON: {e}")
 
 
 class Colors:

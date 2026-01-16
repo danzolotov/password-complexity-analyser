@@ -24,6 +24,16 @@ def main():
         description="Password Complexity Analyser"
     )
     parser.add_argument("password", help="Password to analyse")
+    parser.add_argument(
+        "-o",
+        "--output",
+        nargs="?",
+        const="report.json",
+        default=None,
+        type=str,
+        help="Output JSON file path",
+        metavar="FILE",
+    )
     args = parser.parse_args()
 
     password = args.password
@@ -85,6 +95,20 @@ def main():
         print("-" * 30)
         for suggestion in suggestions:
             print(f"- {suggestion}")
+
+    if args.output:
+        report_data = {
+            "password": password,
+            "basic_report": complexity,
+            "advanced_report": {
+                "entropy": entropy,
+                "strength": strength,
+                "time_to_crack": time_to_crack,
+                "is_common": is_common,
+            },
+            "suggestions": suggestions,
+        }
+        utilities.export_to_json(report_data, args.output)
 
 
 if __name__ == "__main__":
