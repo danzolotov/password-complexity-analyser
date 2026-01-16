@@ -51,6 +51,10 @@ def main():
         print("Error: No password entered.")
         sys.exit(1)
 
+    if " " in password:
+        print("Error: Password cannot contain spaces.")
+        sys.exit(1)
+
     if len(password) > 128:
         print("Error: Password is too long. Maximum Length: 128 characters.")
         sys.exit(1)
