@@ -46,3 +46,42 @@ def estimate_crack_time(entropy: float) -> str:
         return humanize.precisedelta(seconds_to_crack)
     except OverflowError:
         return "Infeasible"
+
+
+class Colors:
+    """
+    ANSI color codes/Escape sequences for terminal output formatting.
+    """
+
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    CYAN = "\033[96m"
+    GREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
+
+def get_bool_colour(value: bool) -> str:
+    color = Colors.GREEN if value else Colors.FAIL
+    return f"{color}{value}{Colors.ENDC}"
+
+
+def get_entropy_color(entropy: float) -> str:
+    if entropy > 60:
+        return Colors.GREEN
+    return Colors.WARNING if entropy > 30 else Colors.FAIL
+
+
+def get_strength_color(strength: str) -> str:
+    if "Strong" in strength:
+        return Colors.GREEN
+    return Colors.WARNING if "Moderate" in strength else Colors.FAIL
+
+
+def get_length_color(length: int) -> str:
+    if length >= 12:
+        return Colors.GREEN
+    return Colors.WARNING if length >= 8 else Colors.FAIL

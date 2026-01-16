@@ -10,6 +10,8 @@ CLI tool designed to evaluate the strength and security of passwords. This proje
 - **Crack Time Estimation:** Provides a human-readable estimate of how long it would take to brute-force the password using modern hardware benchmarks.
 - **Strength Grading:** Assigns descriptive grade based on entropy score.
 - **Common Password Detection:** Checks against a database of common passwords. Known passwords effectively have 0 entropy.
+- **Visual Feedback:** Uses color-coded output to highlight strengths, weaknesses, \& security risks.
+- **Smart Suggestions:** Provides actionable advice to improve password strength.
 
 ## Architecture & Design
 
@@ -49,9 +51,14 @@ Special Character: False
 Advanced Report
 ------------------------------
 Entropy: 65.50 bits
-Strength: Strong
+Strength: Moderate
 Time to Crack: 16 years, 5 months, 29 days, 18 hours and 6 seconds
 Status: Not found in common password list
+
+Suggestions
+------------------------------
+- Increase password length to at least 12 characters.
+- Add at least one special character.
 ```
 
 ## Requirements

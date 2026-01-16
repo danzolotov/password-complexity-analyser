@@ -68,3 +68,34 @@ def get_password_strength(entropy: float) -> str:
         return "Strong"
     else:
         return "Very Strong"
+
+
+def get_password_suggestions(complexity: dict, entropy: float) -> list[str]:
+    """
+    Generates a list of suggestions to improve password strength.
+    """
+    suggestions = []
+
+    if complexity["length"] < 12:
+        suggestions.append(
+            "Increase password length to at least 12 characters."
+        )
+
+    if not complexity["has_lower"]:
+        suggestions.append("Add at least one lowercase letter.")
+
+    if not complexity["has_upper"]:
+        suggestions.append("Add at least one uppercase letter.")
+
+    if not complexity["has_digit"]:
+        suggestions.append("Add at least one digit.")
+
+    if not complexity["has_special"]:
+        suggestions.append("Add at least one special character.")
+
+    if entropy < 60 and not suggestions:
+        suggestions.append(
+            "Your password is still weak. Make it longer or less predictable."
+        )
+
+    return suggestions
