@@ -45,4 +45,4 @@ def estimate_crack_time(entropy: float) -> str:
     try:
         return humanize.precisedelta(seconds_to_crack)
     except OverflowError:
-        return "Infinity"
+        return "Infeasible"

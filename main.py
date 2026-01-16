@@ -32,16 +32,19 @@ def main():
         print("Error: No password entered.")
         sys.exit(1)
 
+    if len(password) > 128:
+        print("Error: Password is too long. Maximum Length: 128 characters.")
+        sys.exit(1)
+
     common_passwords = utilities.load_common_passwords()
 
     # Analysis
     complexity = analyser.check_complexity(password)
-    entropy = analyser.calculate_entropy(password)
     is_common = analyser.check_common_passwords(password, common_passwords)
+    entropy = 0.0 if is_common else analyser.calculate_entropy(password)
+    strength = analyser.get_password_strength(entropy)
     time_to_crack = utilities.estimate_crack_time(entropy)
-    status = (
-        "Compromised" if is_common else "Not found in common password list"
-    )
+    status = "Compromised" if is_common else "Not in common password list"
 
     # Report
     print("\nBasic Report")
@@ -55,6 +58,7 @@ def main():
     print("\nAdvanced Report")
     print("-" * 30)
     print(f"Entropy: {entropy:.2f} bits")
+    print(f"Strength: {strength}")
     print(f"Time to Crack: {time_to_crack}")
     print(f"Status: {status}")
 

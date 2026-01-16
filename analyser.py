@@ -43,15 +43,28 @@ def calculate_entropy(password: str) -> float:
     if report["has_special"]:
         pool_size += 32
 
-    if pool_size == 0:
-        return 0.0
-
     # Entropy equation
     return len(password) * math.log2(pool_size)
 
 
-def check_common_passwords(password, file):
+def check_common_passwords(password: str, file: set) -> bool:
     """
     Checks if password appears in list of common passwords.
     """
     return password.lower() in file
+
+
+def get_password_strength(entropy: float) -> str:
+    """
+    Returns a descriptive strength grade based on entropy score.
+    """
+    if entropy <= 40:
+        return "Very Weak"
+    elif entropy <= 60:
+        return "Weak"
+    elif entropy <= 80:
+        return "Moderate"
+    elif entropy <= 100:
+        return "Strong"
+    else:
+        return "Very Strong"
